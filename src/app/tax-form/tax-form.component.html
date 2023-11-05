@@ -1,0 +1,17 @@
+<form [formGroup]="constructionTaxForm">
+  <label for="county">Județ*</label>
+  <select id="county" formControlName="county">
+    <option value="">-- Select County --</option>
+    <option *ngFor="let county of counties; let i = index" [value]="i">
+      {{ county }}
+    </option>
+  </select>
+
+  <label for="institution">Instituție</label>
+  <select id="institution" formControlName="institution">
+    <option value="">-- Select Institution --</option>
+    <option *ngFor="let institution of institutions" [value]="institution">
+      {{ institution }}
+    </option>
+  </select>
+</form>
