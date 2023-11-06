@@ -10,7 +10,7 @@ import { distinctUntilChanged, filter, pipe, switchMap } from 'rxjs';
 })
 export class TaxFormComponent {
   constructionTaxForm: FormGroup = new FormGroup({});
-  counties: string[] = [];
+  counties: string[] = this.geoDataService.getCounties();
   institutions: string[] = [];
 
   constructor(
@@ -28,10 +28,6 @@ export class TaxFormComponent {
       recipientNameOrBusiness: [''],
       recipientAddress: [''],
       recipientEmail: [''],
-    });
-
-    this.geoDataService.getCounties().subscribe((data) => {
-      this.counties = data;
     });
 
     this.constructionTaxForm

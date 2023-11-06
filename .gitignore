@@ -43,3 +43,4 @@ Thumbs.db
 
 /api/node_modules
 /api/package-lock.json
+/api/.env
