@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { GeoDataService } from '../geo-data.service';
 import { distinctUntilChanged, filter, pipe, switchMap } from 'rxjs';
 
@@ -20,14 +25,38 @@ export class TaxFormComponent {
 
   ngOnInit(): void {
     this.constructionTaxForm = this.formBuilder.group({
-      county: [''],
-      institution: [''],
-      isIndividual: [true],
-      payerSSN: [''],
-      recipientSSN: [''],
-      recipientNameOrBusiness: [''],
-      recipientAddress: [''],
-      recipientEmail: [''],
+      county: ['', [Validators.required]],
+      institution: ['', [Validators.required]],
+      personType: ['individual', [Validators.required]],
+      authorizedValue: [
+        '',
+        [
+          Validators.required,
+          Validators.min(1),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
+      payerSSN: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(13),
+          Validators.maxLength(13),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
+      recipientSSN: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(13),
+          Validators.maxLength(13),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
+      recipientNameOrBusiness: ['', [Validators.required]],
+      recipientAddress: ['', [Validators.required]],
+      recipientEmail: ['', [Validators.required, Validators.email]],
     });
 
     this.constructionTaxForm

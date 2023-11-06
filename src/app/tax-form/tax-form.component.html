@@ -14,4 +14,39 @@
       {{ institution }}
     </option>
   </select>
+
+  <label for="personType">Tip Persoană*</label>
+  <select id="personType" formControlName="personType">
+    <option value="individual">Persoană Fizică</option>
+    <option value="legal">Persoană Juridică</option>
+  </select>
+
+  <label for="authorizedValue">Valoarea autorizată a lucrărilor de construcții*</label>
+  <input id="authorizedValue" type="text" formControlName="authorizedValue" />
+
+  <label for="payerSSN">CNP al persoanei care face plata*</label>
+  <input id="payerSSN" type="text" formControlName="payerSSN" />
+
+  <label for="recipientSSN">CNP al persoanei pentru care se face plata*</label>
+  <input id="recipientSSN" type="text" formControlName="recipientSSN" />
+
+  <label for="recipientNameOrBusiness">Nume și prenume/Denumire PFA*</label>
+  <input
+    id="recipientNameOrBusiness"
+    type="text"
+    formControlName="recipientNameOrBusiness"
+  />
+
+  <label for="recipientNameOrBusiness">Adresa poștală*</label>
+  <textarea
+    id="recipientNameOrBusiness"
+    type="text"
+    formControlName="recipientNameOrBusiness"
+  >
+  </textarea>
+
+  <label for="recipientEmail">Email*</label>
+  <input id="recipientEmail" type="email" formControlName="recipientEmail" />
+
+  <button type="submit" [disabled]="!constructionTaxForm.valid">Submit</button>
 </form>
