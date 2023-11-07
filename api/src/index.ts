@@ -3,8 +3,8 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 
 import db from '../utils/firebase.js';
-import { timeStamp } from 'console';
-import { addDoc, collection, setDoc } from 'firebase/firestore';
+import { setDoc } from 'firebase/firestore';
+import fs from 'fs';
 
 const app = express();
 
@@ -97,17 +97,44 @@ app.post('/api/submit', jsonParser, (req: Request, res: Response) => {
     message = 'Invalid total';
   }
 
-  if (message === 'Valid') {
-    setDoc(
-      doc(
-        db,
-        'taxes',
-        Date.now().toString() + '_' + data.form.recipientNameOrBusiness
-      ),
-      data
-    );
+  const sanitizedRecipientName = data.form.recipientNameOrBusiness.replace(
+    / /g,
+    '_'
+  );
 
-    res.json({ message });
+  const timestampKey = Date.now().toString() + '_' + sanitizedRecipientName;
+
+  if (message === 'Valid') {
+    setDoc(doc(db, 'taxes', timestampKey), data);
+
+    // Write the data to a local JSON file
+    const filename = '../data/submitted_data.json';
+
+    fs.readFile(filename, 'utf8', (err, fileContent) => {
+      if (err) {
+        console.error('Error reading data from the file:', err);
+      } else {
+        let existingData = [];
+
+        if (fileContent !== '') {
+          existingData = JSON.parse(fileContent);
+        }
+
+        existingData.push({ timestampKey, data });
+
+        fs.writeFile(
+          filename,
+          JSON.stringify(existingData, null, 2),
+          (writeErr) => {
+            if (writeErr) {
+              console.error('Error writing data to the file:', writeErr);
+            } else {
+              res.json({ message });
+            }
+          }
+        );
+      }
+    });
   } else {
     res.status(400).json({ message });
   }
