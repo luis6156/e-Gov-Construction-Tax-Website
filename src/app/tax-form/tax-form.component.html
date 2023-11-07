@@ -18,7 +18,7 @@
       "
     ></div>
 
-    <div fxLayout fxLayoutAlign="space-around center" style="width: 60%">
+    <div fxLayout fxLayoutAlign="space-around center" style="width: 30%">
       <mat-form-field appearance="outline" fxFlex="15rem">
         <mat-label>Județ</mat-label>
         <mat-select formControlName="county">
@@ -80,7 +80,7 @@
     </mat-form-field>
 
     <div *ngIf="totalToPay !== 0">
-      <p style="margin-bottom: 2.5rem; margin-top: 0; color: red">
+      <p style="margin-bottom: 2.5rem; margin-top: 0; color: green">
         Total de plată: <strong>{{ totalToPay }} RON</strong>
       </p>
     </div>
