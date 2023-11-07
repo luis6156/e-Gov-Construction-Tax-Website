@@ -28,7 +28,6 @@ export abstract class Constants {
     'ILFOV',
     'MARAMUREŞ',
     'MEHEDINŢI',
-    'MUNICIPIUL BUCUREŞTI',
     'MUREŞ',
     'NEAMŢ',
     'OLT',

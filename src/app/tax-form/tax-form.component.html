@@ -1,52 +1,108 @@
 <form [formGroup]="constructionTaxForm">
-  <label for="county">Județ*</label>
-  <select id="county" formControlName="county">
-    <option value="">-- Select County --</option>
-    <option *ngFor="let county of counties; let i = index" [value]="i">
-      {{ county }}
-    </option>
-  </select>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <h3 class="mat-h3"><strong>Locație</strong></h3>
 
-  <label for="institution">Instituție</label>
-  <select id="institution" formControlName="institution">
-    <option value="">-- Select Institution --</option>
-    <option *ngFor="let institution of institutions" [value]="institution">
-      {{ institution }}
-    </option>
-  </select>
+    <div fxLayout fxLayoutAlign="space-around center" style="width: 60%">
+      <mat-form-field appearance="outline" fxFlex="15rem">
+        <mat-label>Județ</mat-label>
+        <mat-select formControlName="county">
+          <mat-option>-- Selectează județul --</mat-option>
+          <mat-option
+            *ngFor="let county of counties; let i = index"
+            [value]="i"
+          >
+            {{ county }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <label for="personType">Tip Persoană*</label>
-  <select id="personType" formControlName="personType">
-    <option value="individual">Persoană Fizică</option>
-    <option value="legal">Persoană Juridică</option>
-  </select>
+      <mat-form-field appearance="outline" fxFlex="15rem">
+        <mat-label>Instituție</mat-label>
+        <mat-select formControlName="institution">
+          <mat-option>-- Selectează instituția --</mat-option>
+          <mat-option
+            *ngFor="let institution of institutions"
+            [value]="institution"
+          >
+            {{ institution }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <label for="authorizedValue">Valoarea autorizată a lucrărilor de construcții*</label>
-  <input id="authorizedValue" type="text" formControlName="authorizedValue" />
+    <h3 class="mat-h3"><strong>Plată</strong></h3>
 
-  <label for="payerSSN">CNP al persoanei care face plata*</label>
-  <input id="payerSSN" type="text" formControlName="payerSSN" />
+    <mat-form-field appearance="outline" style="width: 35%">
+      <mat-label>Tip taxă</mat-label>
+      <mat-select formControlName="taxType">
+        <mat-option value="">-- Selectează tipul de plată --</mat-option>
+        <mat-option value="create-residential">
+          Clădire rezidențială
+        </mat-option>
+        <mat-option value="create-commercial"> Clădire comercială </mat-option>
+        <mat-option value="renewal"> Prelungire autorizație </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <label for="recipientSSN">CNP al persoanei pentru care se face plata*</label>
-  <input id="recipientSSN" type="text" formControlName="recipientSSN" />
+    <mat-form-field
+      *ngIf="constructionTaxForm.get('taxType')?.value !== ''"
+      appearance="outline"
+      style="width: 20rem"
+    >
+      <mat-label>Valoarea autorizată a lucrărilor de construcții</mat-label>
+      <input formControlName="authorizedValue" matInput />
+    </mat-form-field>
 
-  <label for="recipientNameOrBusiness">Nume și prenume/Denumire PFA*</label>
-  <input
-    id="recipientNameOrBusiness"
-    type="text"
-    formControlName="recipientNameOrBusiness"
-  />
+    <div *ngIf="totalToPay !== 0">
+      <p style="margin-top: 0">
+        Total de plată: <strong>{{ totalToPay }} RON</strong>
+      </p>
+    </div>
 
-  <label for="recipientNameOrBusiness">Adresa poștală*</label>
-  <textarea
-    id="recipientNameOrBusiness"
-    type="text"
-    formControlName="recipientNameOrBusiness"
-  >
-  </textarea>
+    <h3 class="mat-h3"><strong>Date personale</strong></h3>
 
-  <label for="recipientEmail">Email*</label>
-  <input id="recipientEmail" type="email" formControlName="recipientEmail" />
+    <mat-form-field appearance="outline">
+      <mat-label>Tip Persoană</mat-label>
+      <mat-select formControlName="personType">
+        <mat-option value="individual"> Persoană Fizică </mat-option>
+        <mat-option value="legal"> Persoană Juridică </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <button type="submit" [disabled]="!constructionTaxForm.valid">Submit</button>
+    <mat-form-field appearance="outline" style="width: 20rem">
+      <mat-label>CNP al persoanei care face plata</mat-label>
+      <input formControlName="payerSSN" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 25rem">
+      <mat-label>CNP al persoanei pentru care se face plata</mat-label>
+      <input formControlName="recipientSSN" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 20rem">
+      <mat-label>Nume și prenume/Denumire PFA</mat-label>
+      <input formControlName="recipientNameOrBusiness" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 25rem">
+      <mat-label>Adresa poștală</mat-label>
+      <input formControlName="recipientAddress" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 20rem">
+      <mat-label>Email</mat-label>
+      <input type="email" formControlName="recipientEmail" matInput />
+    </mat-form-field>
+
+    <button
+      type="submit"
+      [disabled]="!constructionTaxForm.valid"
+      mat-flat-button
+      color="primary"
+      (click)="submitForm()"
+    >
+      <mat-icon>home</mat-icon>
+      Submit
+    </button>
+  </div>
 </form>
