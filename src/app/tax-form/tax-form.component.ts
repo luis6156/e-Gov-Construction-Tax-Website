@@ -4,7 +4,7 @@ import { GeoDataService } from '../geo-data.service';
 import { distinctUntilChanged, filter, pipe, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import jsPDF from 'jspdf';
-import font from '../../assets/fonts/arial-unicode-ms-normal';
+import font from '../../assets/fonts/Roboto-Regular-normal';
 
 interface TaxResult {
   total: number;
@@ -137,10 +137,10 @@ export class TaxFormComponent {
   private generatePDF() {
     const doc = new jsPDF();
 
-    doc.addFileToVFS('arial-unicode-ms.ttf', font);
-    doc.addFont('arial-unicode-ms.ttf', 'arial-unicode-ms', 'normal');
+    doc.addFileToVFS('Roboto-Regular.ttf', font);
+    doc.addFont('Roboto-Regular.ttf', 'Roboto-Regular', 'normal');
 
-    doc.setFont('arial-unicode-ms');
+    doc.setFont('Roboto-Regular');
 
     doc.text(
       'Plată a taxei pentru eliberarea autorizației de construcție',
