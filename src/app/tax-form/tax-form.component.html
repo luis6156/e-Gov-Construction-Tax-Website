@@ -1,6 +1,22 @@
 <form [formGroup]="constructionTaxForm">
   <div fxLayout="column" fxLayoutAlign="center center">
-    <h3 class="mat-h3"><strong>Locație</strong></h3>
+    <p class="mat-h4" style="width: 70%">
+      21.A.16.50.00 Alte taxe pe utilizarea bunurilor, autorizarea utilizării
+      bunurilor sau pe desfășurare de activități/Taxa autorizatie de construire
+      Cont IBAN configurat de institutie: RO97TREZ70121160250XXXXX. Totalul de
+      plată se calculează pe baza tipului de clădire pentru care se dorește
+      autorizația sau pe baza valorii inițiale a taxei pentru prelungirea unei
+      autorizații.
+    </p>
+
+    <div
+      style="
+        background-color: #407ee3;
+        height: 0.1rem;
+        width: 60%;
+        margin-bottom: 1rem;
+      "
+    ></div>
 
     <div fxLayout fxLayoutAlign="space-around center" style="width: 60%">
       <mat-form-field appearance="outline" fxFlex="15rem">
@@ -30,27 +46,37 @@
       </mat-form-field>
     </div>
 
-    <h3 class="mat-h3"><strong>Plată</strong></h3>
-
-    <mat-form-field appearance="outline" style="width: 35%">
+    <mat-form-field
+      appearance="outline"
+      style="width: 40%; margin-bottom: 2.5rem"
+    >
       <mat-label>Tip taxă</mat-label>
       <mat-select formControlName="taxType">
-        <mat-option value="">-- Selectează tipul de plată --</mat-option>
+        <mat-option value="">-- Selectează tipul de taxă --</mat-option>
         <mat-option value="create-residential">
           Clădire rezidențială
         </mat-option>
         <mat-option value="create-commercial"> Clădire comercială </mat-option>
         <mat-option value="renewal"> Prelungire autorizație </mat-option>
       </mat-select>
+      <mat-hint align="start"
+        ><strong
+          >Selectați dacă doriți să extindeți autorizația sau tipul de clădire
+          pentru care doriți o autorizație.</strong
+        >
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field
       *ngIf="constructionTaxForm.get('taxType')?.value !== ''"
       appearance="outline"
-      style="width: 20rem"
+      style="width: 20rem; margin-bottom: 1.5rem"
     >
       <mat-label>Valoarea autorizată a lucrărilor de construcții</mat-label>
       <input formControlName="authorizedValue" matInput />
+      <mat-hint align="start"
+        ><strong>Valoarea se va introduce în RON.</strong></mat-hint
+      >
     </mat-form-field>
 
     <div *ngIf="totalToPay !== 0">
@@ -58,8 +84,6 @@
         Total de plată: <strong>{{ totalToPay }} RON</strong>
       </p>
     </div>
-
-    <h3 class="mat-h3"><strong>Date personale</strong></h3>
 
     <mat-form-field appearance="outline">
       <mat-label>Tip Persoană</mat-label>
@@ -69,14 +93,30 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 20rem">
+    <mat-form-field
+      appearance="outline"
+      style="width: 22rem; margin-bottom: 1rem"
+    >
       <mat-label>CNP al persoanei care face plata</mat-label>
       <input formControlName="payerSSN" matInput />
+      <mat-hint align="start"
+        ><strong
+          >Sau CUI în cazul unei Persoane Fizice Autorizate</strong
+        ></mat-hint
+      >
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 25rem">
+    <mat-form-field
+      appearance="outline"
+      style="width: 25rem; margin-bottom: 1rem"
+    >
       <mat-label>CNP al persoanei pentru care se face plata</mat-label>
       <input formControlName="recipientSSN" matInput />
+      <mat-hint align="start"
+        ><strong
+          >Sau CUI în cazul unei Persoane Fizice Autorizate</strong
+        ></mat-hint
+      >
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 20rem">
@@ -101,8 +141,8 @@
       color="primary"
       (click)="submitForm()"
     >
-      <mat-icon>home</mat-icon>
-      Submit
+      <mat-icon>check</mat-icon>
+      Plătește
     </button>
   </div>
 </form>
