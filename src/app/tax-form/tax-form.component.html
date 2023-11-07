@@ -48,7 +48,7 @@
 
     <mat-form-field
       appearance="outline"
-      style="width: 40%; margin-bottom: 2.5rem"
+      style="width: 20rem; margin-bottom: 2.5rem"
     >
       <mat-label>Tip taxă</mat-label>
       <mat-select formControlName="taxType">
@@ -70,7 +70,7 @@
     <mat-form-field
       *ngIf="constructionTaxForm.get('taxType')?.value !== ''"
       appearance="outline"
-      style="width: 20rem; margin-bottom: 1.5rem"
+      style="width: 25rem; margin-bottom: 1.5rem"
     >
       <mat-label>Valoarea autorizată a lucrărilor de construcții</mat-label>
       <input formControlName="authorizedValue" matInput />

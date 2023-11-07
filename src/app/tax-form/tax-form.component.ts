@@ -85,7 +85,7 @@ export class TaxFormComponent {
     this.constructionTaxForm
       .get('taxType')
       ?.valueChanges.subscribe((newTaxType) => {
-        this.constructionTaxForm.get('authorizedValue')?.setValue(0);
+        this.constructionTaxForm.get('authorizedValue')?.setValue('');
       });
 
     this.constructionTaxForm
@@ -172,9 +172,16 @@ export class TaxFormComponent {
       if (key === 'county') {
         value = this.counties[formData[key]];
       } else if (key === 'authorizedValue') {
-        doc.text(`Total plătit: ${this.totalToPay}`, 10, yPos);
+        doc.text(`Total plătit: ${this.totalToPay} RON`, 10, yPos);
         yPos += 10;
         continue;
+      } else if (key === 'taxType') {
+        value =
+          formData[key] === 'create-residential'
+            ? 'Plată taxă aviz de construcție clădire rezidențială'
+            : formData[key] === 'create-commercial'
+            ? 'Plată taxă aviz de construcție clădire comercială'
+            : 'Plată taxă prelungire aviz de construcție';
       } else {
         value = formData[key];
       }
